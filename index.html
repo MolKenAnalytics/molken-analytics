@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MolKen Analytics — Process Intelligence & Traceability Consultancy</title>
+<meta name="description" content="MolKen Analytics brings scientific rigour to process optimisation, complete work traceability, and QR-based implementation across manufacturing and operations-driven industries." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F7F8F5;
+    color: #111714;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── CSS VARIABLES ── */
+  :root {
+    --green: #2D6A4F;
+    --green-mid: #40916C;
+    --green-light: #74C69D;
+    --green-pale: #D8F3DC;
+    --green-glow: rgba(45,106,79,0.10);
+    --surface: #FFFFFF;
+    --surface-alt: #F7F8F5;
+    --surface-mid: #EEF1EC;
+    --ink: #111714;
+    --text-primary: #111714;
+    --text-secondary: #4A5550;
+    --text-muted: #8A9490;
+    --border: rgba(45,106,79,0.18);
+    --border-subtle: rgba(45,106,79,0.08);
+    --radius: 4px;
+    --radius-lg: 8px;
+    --gold: #C9A84C;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; line-height: 1.15; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; }
+  h3 { font-size: 1.2rem; font-weight: 600; }
+  p { font-size: 1rem; font-weight: 300; color: var(--text-secondary); }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  section { padding: 7rem 0; }
+
+  /* ── LABEL / EYEBROW ── */
+  .label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--green);
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+  }
+  .btn-gold {
+    background: var(--green);
+    color: #FFFFFF;
+  }
+  .btn-gold:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247,248,245,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: all 0.3s;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 2rem;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta { display: flex; gap: 1rem; align-items: center; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 22px; height: 1.5px; background: var(--text-primary); display: block; transition: all 0.3s; }
+
+  @media (max-width: 860px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 68px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(45,106,79,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,106,79,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+  }
+  .hero-glow {
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(45,106,79,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 780px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--green);
+    margin-bottom: 2.5rem;
+    background: var(--green-pale);
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(1.4); }
+  }
+  .hero-title { color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-title .line-gold { color: var(--green); display: block; }
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--ink);
+  }
+  .stat-num span { color: var(--green); }
+  .stat-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(45,106,79,0.2), transparent);
+    margin: 0;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface-alt); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--surface-mid);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+  .about-card-accent { border-left: 3px solid var(--green); }
+  .about-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .about-card p { font-size: 0.88rem; }
+  .molken-meaning {
+    display: flex; gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .mol, .ken {
+    flex: 1;
+    background: var(--surface-mid);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .mol-word, .ken-word {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem; font-weight: 800;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .mol-def, .ken-def {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--surface); }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--surface);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--surface-alt); }
+  .service-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .service-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .service-card h3 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .service-card p { font-size: 0.88rem; line-height: 1.6; }
+  .service-tag {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--green-pale);
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+  }
+
+  /* QR feature highlight */
+  .service-card.qr-featured {
+    background: var(--surface-mid);
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .service-card.qr-featured::before {
+    content: 'NEW';
+    position: absolute; top: 1rem; right: 1rem;
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em;
+    color: var(--green);
+    background: var(--green-pale);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 50px;
+  }
+
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 580px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── QR SECTION ── */
+  #qr { background: var(--surface-alt); }
+  .qr-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .qr-steps { display: flex; flex-direction: column; gap: 0; }
+  .qr-step {
+    display: flex; gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .qr-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    min-width: 32px;
+    padding-top: 0.2rem;
+  }
+  .step-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+  .step-body p { font-size: 0.85rem; }
+  .qr-visual {
+    background: var(--surface-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+  .qr-demo-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .qr-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-subtle);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .qr-row {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 0.6rem;
+  }
+  .qr-box {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-alt);
+    flex-shrink: 0;
+  }
+  .qr-box svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .qr-info h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+  }
+  .qr-info p { font-size: 0.78rem; }
+  .qr-fields { display: flex; flex-direction: column; gap: 0.4rem; }
+  .qr-field {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .qr-field:last-child { border-bottom: none; }
+  .field-label { color: var(--text-muted); }
+  .field-value { color: var(--text-primary); font-weight: 400; }
+  .field-value.live { color: var(--green-mid); }
+  .status-bar {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.78rem; color: var(--text-muted);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+  }
+
+  @media (max-width: 760px) {
+    .qr-layout { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .project-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .project-card:hover {
+    border-color: var(--border);
+    transform: translateY(-3px);
+  }
+  .project-kpi {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .project-kpi-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .project-card h3 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.65rem; }
+  .project-card p { font-size: 0.85rem; }
+  .project-industry {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 760px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── HOW IT WORKS ── */
+  #how-it-works { background: var(--surface-alt); }
+  .process-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+  .process-track::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--green-light), var(--green-light), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 0 0.75rem;
+    position: relative; z-index: 1;
+  }
+  .process-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+  }
+  .process-circle svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .process-step h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .process-step p { font-size: 0.78rem; }
+
+  @media (max-width: 760px) {
+    .process-track { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-track::before { display: none; }
+  }
+  @media (max-width: 480px) {
+    .process-track { grid-template-columns: 1fr; }
+  }
+
+  /* ── SCIENCE STRIP ── */
+  #science {
+    background: var(--surface);
+    padding: 5rem 0;
+  }
+  .science-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 3.5rem;
+  }
+  .science-cell {
+    background: var(--surface);
+    padding: 2rem 1.5rem;
+  }
+  .science-cell h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+  }
+  .science-cell p { font-size: 0.83rem; }
+
+  @media (max-width: 760px) {
+    .science-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--surface-alt); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 1rem; color: var(--text-primary); }
+  .contact-info p { margin-bottom: 2rem; }
+  .contact-detail {
+    display: flex; gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+  .contact-detail-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-detail-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .contact-detail-text span {
+    display: block;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+  .contact-detail-text a, .contact-detail-text p {
+    font-size: 0.9rem; color: var(--text-primary); margin: 0;
+  }
+  .form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: border-color 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--green);
+  }
+  .form-group select option { background: var(--surface-alt); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--green);
+    color: #FFFFFF;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .form-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+  @media (max-width: 760px) {
+    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border-subtle);
+    padding: 3rem 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 800;
+    color: var(--text-secondary);
+  }
+  .footer-logo span { color: var(--green); }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .footer-links a {
+    font-size: 0.8rem; color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--green); }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header { max-width: 560px; }
+  .section-header h2 { color: var(--text-primary); margin-bottom: 1rem; }
+  .section-header p { font-size: 0.95rem; }
+
+  /* reveal — always visible */
+  .reveal { opacity: 1; transform: none; }
+
+  /* ── MOBILE NAV MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: rgba(247,248,245,0.99);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--ink);
+  }
+  .mobile-menu a:hover { color: var(--green); }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">Mol<span>Ken</span> Analytics</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#qr">QR Traceability</a></li>
+      <li><a href="#projects">Results</a></li>
+      <li><a href="#how-it-works">Process</a></li>
+      <li><a href="#why-molken">Why MolKen</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/cdn-cgi/l/email-protection#b6dbd9daddd3d8d7d8d7dacfc2dfd5c5f6d1dbd7dfda98d5d9db" class="btn btn-outline">Get in touch</a>
+    </div>
+    <div class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#qr" onclick="closeMobile()">QR Traceability</a>
+  <a href="#projects" onclick="closeMobile()">Results</a>
+  <a href="#how-it-works" onclick="closeMobile()">Process</a>
+  <a href="#why-molken" onclick="closeMobile()">Why MolKen</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Manufacturing · Biotech · Operations · Any Industry
+      </div>
+      <h1 class="hero-title">
+        From process<br/>
+        <span class="line-gold">chaos to clarity.</span>
+      </h1>
+      <p class="hero-sub">
+        MolKen Analytics engineers end-to-end process traceability and operational intelligence — grounded in science, built for the real world. Every workflow. Every asset. Every decision — tracked, measurable, and auditable.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-gold">
+          Explore our services
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#qr" class="btn btn-outline">QR traceability →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="reveal">
+          <div class="stat-num">25<span>%</span></div>
+          <div class="stat-label">Production efficiency gained</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num">30<span>%</span></div>
+          <div class="stat-label">Cost reduction achieved</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Work traceability, from day one</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="label">Who we are</div>
+        <h2 style="color:var(--text-primary); margin-bottom:1.25rem;">The name says it all.</h2>
+        <p style="margin-bottom:1.5rem;">
+          <strong style="color:var(--text-primary); font-weight:500;">Mol</strong> — the scientific unit of precision measurement. <strong style="color:var(--text-primary); font-weight:500;">Ken</strong> — deep domain knowledge and mastery. Together: measurable intelligence, rigorously applied.
+        </p>
+        <p style="margin-bottom:2rem;">
+          We bridge the gap between data generation and actionable insight. Our consultants embed within your operations, map every process node, and install systems that make invisible work visible — permanently.
+        </p>
+        <div class="about-card about-card-accent">
+          <h4>Science-backed, not buzzword-driven</h4>
+          <p>Every recommendation is grounded in Six Sigma, Lean principles, ISO frameworks, and real operational data — not guesswork.</p>
+        </div>
+        <div class="about-card">
+          <h4>Sector-agnostic, industry-deep</h4>
+          <p>Manufacturing-led expertise that scales to pharma, biotech, food & beverage, logistics, and service operations.</p>
+        </div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="molken-meaning">
+          <div class="mol">
+            <span class="mol-word">Mol</span>
+            <span class="mol-def">Precise measurement</span>
+          </div>
+          <div class="ken">
+            <span class="ken-word">Ken</span>
+            <span class="ken-def">Domain mastery</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <h4>Our operating principle</h4>
+          <p style="font-size:0.92rem; line-height:1.7; color:var(--text-secondary);">
+            "You cannot improve what you cannot measure. You cannot measure what you cannot trace. We exist to close that loop — permanently."
+          </p>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:1rem;">
+          <div style="flex:1; background:var(--surface-mid); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem; text-align:center;">
+            <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--green);">ISO</div>
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-top:0.2rem;">Aligned frameworks</div>
+          </div>
+          <div style="flex:1; background:var(--surface-mid); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem; text-align:center;">
+            <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--green);">6σ</div>
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-top:0.2rem;">Six Sigma methods</div>
+          </div>
+          <div style="flex:1; background:var(--surface-mid); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem; text-align:center;">
+            <div style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--green);">Lean</div>
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-top:0.2rem;">Waste elimination</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <div class="section-header reveal">
+        <div class="label">What we do</div>
+        <h2>Six disciplines.<br/>One system of clarity.</h2>
+      </div>
+      <a href="#contact" class="btn btn-outline reveal">Talk to a specialist →</a>
+    </div>
+    <div class="services-grid">
+      <!-- 1 -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        </div>
+        <h3>Process Optimisation Consulting</h3>
+        <p>Systematic mapping, gap analysis, and redesign of operational workflows using Lean and Six Sigma methodologies. We eliminate waste at the root, not the symptom.</p>
+        <span class="service-tag">Lean · Six Sigma · VSM</span>
+      </div>
+      <!-- 2 -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <h3>Data Analytics & Operational Intelligence</h3>
+        <p>Raw data transformed into structured decision dashboards. We install measurement frameworks that surface the real signals buried in your operations.</p>
+        <span class="service-tag">KPIs · Dashboards · Root Cause</span>
+      </div>
+      <!-- 3 -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+        </div>
+        <h3>Digital Transformation Strategy</h3>
+        <p>From paper-based SOPs to fully digitised workflows. We design and implement transformation roadmaps that your team can actually adopt — not just theory.</p>
+        <span class="service-tag">SOPs · ERP Integration · Change Mgmt</span>
+      </div>
+      <!-- 4 -->
+      <div class="service-card qr-featured reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3m0 0v3m0-3h3m-3 3v3m-3-3v3m3-3h3"/></svg>
+        </div>
+        <h3>QR-Based Traceability Implementation</h3>
+        <p>End-to-end QR code systems designed from scratch — for assets, batches, tools, documents, and personnel. Every scan creates an immutable audit trail. Works for any industry, any scale.</p>
+        <span class="service-tag">Asset Tracking · Batch Trace · Audit Trail</span>
+      </div>
+      <!-- 5 -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3>Quality Control Systems Design</h3>
+        <p>Structured QC frameworks with statistical process control, inspection protocols, and non-conformance management — reducing defects while protecting brand and compliance posture.</p>
+        <span class="service-tag">SPC · FMEA · CAPA</span>
+      </div>
+      <!-- 6 -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h3>SOP Development & Knowledge Architecture</h3>
+        <p>Standard Operating Procedures that people actually follow. We structure institutional knowledge into clear, auditable, version-controlled documentation systems.</p>
+        <span class="service-tag">SOPs · Work Instructions · Training</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── QR TRACEABILITY ── -->
+<section id="qr">
+  <div class="container">
+    <div class="qr-layout">
+      <div class="reveal">
+        <div class="label">QR traceability</div>
+        <h2 style="color:var(--text-primary); margin-bottom:1.25rem;">From scratch to full visibility.</h2>
+        <p style="margin-bottom:2rem;">
+          Most organisations track nothing. Some track some things. We implement complete QR-based traceability — for any object, any process, any industry — built from the ground up so every touchpoint generates a permanent, queryable record.
+        </p>
+        <div class="qr-steps">
+          <div class="qr-step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Audit what exists</h4>
+              <p>Map every asset, batch, document, or personnel touchpoint that currently has no trace record.</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Design the traceability schema</h4>
+              <p>Define what each QR scan captures: who, what, where, when, status, and chain of custody.</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Generate and deploy QR codes</h4>
+              <p>Custom QR labels printed and embedded at every critical node — production floor, lab, warehouse, field.</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h4>Connect to a live dashboard</h4>
+              <p>All scan data flows into a real-time operations dashboard. Full history, full auditability, zero paperwork.</p>
+            </div>
+          </div>
+          <div class="qr-step">
+            <div class="step-num">05</div>
+            <div class="step-body">
+              <h4>Train, refine, and scale</h4>
+              <p>Hands-on team training followed by iterative improvement as data matures. Built to scale as you grow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-visual reveal">
+        <div class="qr-demo-title">Live traceability record — example</div>
+        <div class="qr-card">
+          <div class="qr-row">
+            <div class="qr-box">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3m0 0v3m0-3h3m-3 3v3m-3-3v3m3-3h3"/></svg>
+            </div>
+            <div class="qr-info">
+              <h5>Batch #MKA-2024-0891</h5>
+              <p>Production Line 3 · Station 7</p>
+            </div>
+          </div>
+          <div class="qr-fields">
+            <div class="qr-field">
+              <span class="field-label">Product</span>
+              <span class="field-value">API Compound K-77</span>
+            </div>
+            <div class="qr-field">
+              <span class="field-label">Operator</span>
+              <span class="field-value">R. Sharma (ID: 0034)</span>
+            </div>
+            <div class="qr-field">
+              <span class="field-label">Last scan</span>
+              <span class="field-value">QC Inspection — Pass</span>
+            </div>
+            <div class="qr-field">
+              <span class="field-label">Temperature log</span>
+              <span class="field-value">18 readings · Within spec</span>
+            </div>
+            <div class="qr-field">
+              <span class="field-label">Chain of custody</span>
+              <span class="field-value">6 verified handoffs</span>
+            </div>
+            <div class="qr-field">
+              <span class="field-label">Status</span>
+              <span class="field-value live">● Released for packaging</span>
+            </div>
+          </div>
+          <div class="status-bar">
+            <span class="status-dot"></span>
+            Live record · Last updated 4 min ago
+          </div>
+        </div>
+        <div style="padding: 1.25rem; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border-subtle); font-size: 0.82rem; color: var(--text-muted); line-height:1.6;">
+          One QR scan. Every field auto-populated. No paper form. No ambiguity. This record exists forever.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">Proven outcomes</div>
+      <h2>Results that speak in numbers.</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <span class="project-kpi">+25%</span>
+        <span class="project-kpi-label">Production efficiency uplift</span>
+        <h3>Biotech Production Line Overhaul</h3>
+        <p>Re-engineered batch processing workflows and installed real-time monitoring for a biotech manufacturer, eliminating bottlenecks and restoring operational rhythm across key production lines.</p>
+        <span class="project-industry">Biotechnology · Manufacturing</span>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-kpi">−40%</span>
+        <span class="project-kpi-label">Defect rate reduction</span>
+        <h3>Quality Control System Rebuild</h3>
+        <p>Deployed a structured FMEA-based QC framework with statistical process controls, reducing customer complaints and establishing full non-conformance traceability.</p>
+        <span class="project-industry">Precision Manufacturing · QC</span>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-kpi">−30%</span>
+        <span class="project-kpi-label">Operational cost reduction</span>
+        <h3>Data-Driven Operations Transformation</h3>
+        <p>Replaced gut-feel decisions with a live operational KPI dashboard, driving measurable waste reduction across procurement, production scheduling, and maintenance.</p>
+        <span class="project-industry">Process Industry · Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">Our process</div>
+      <h2>A five-stage engagement model.</h2>
+      <p style="margin-top:0.75rem;">No black-box consulting. Every engagement follows a transparent, science-led methodology — you see every step.</p>
+    </div>
+    <div class="process-track">
+      <div class="process-step reveal">
+        <div class="process-circle">
+          <svg viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </div>
+        <h4>Initial consultation</h4>
+        <p>Deep discovery of your current-state processes, pain points, and objectives.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-circle">
+          <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h4>Data assessment</h4>
+        <p>Quantitative analysis of process data, defect rates, cycle times, and inefficiency hotspots.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-circle">
+          <svg viewBox="0 0 24 24"><path d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+        </div>
+        <h4>Process design</h4>
+        <p>Co-creation of optimised workflows, SOPs, traceability schemas, and measurement systems.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-circle">
+          <svg viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h4>Implementation</h4>
+        <p>Hands-on deployment with your team — no handover-and-disappear. We stay through go-live.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-circle">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <h4>Sustain & scale</h4>
+        <p>Post-implementation review, team capability building, and expansion roadmap as your operations grow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── WHY MOLKEN ── -->
+<section id="why-molken" style="background: var(--green); padding: 7rem 0;">
+  <div class="container">
+    <div style="max-width: 640px; margin-bottom: 4rem;" class="reveal">
+      <div class="label" style="color: var(--green-pale);">Why MolKen</div>
+      <h2 style="color: #FFFFFF; margin-bottom: 1rem;">This is how we think.</h2>
+      <p style="color: rgba(255,255,255,0.65); font-size: 1rem;">
+        Three principles that guide every engagement — and separate a system that lasts from advice that fades.
+      </p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); overflow: hidden;">
+
+      <div style="background: var(--green); padding: 2.5rem 2rem;" class="reveal">
+        <div style="font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:800; color:rgba(255,255,255,0.15); line-height:1; margin-bottom:1.5rem;">01</div>
+        <h3 style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:0.75rem; font-family:'Syne',sans-serif;">We measure before we recommend.</h3>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); line-height:1.7;">
+          Every diagnosis starts with data, not assumptions. We walk your floor, read your numbers, and map what's actually happening — before a single recommendation is made.
+        </p>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.05); padding: 2.5rem 2rem;" class="reveal">
+        <div style="font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:800; color:rgba(255,255,255,0.15); line-height:1; margin-bottom:1.5rem;">02</div>
+        <h3 style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:0.75rem; font-family:'Syne',sans-serif;">We trace before we optimise.</h3>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); line-height:1.7;">
+          You cannot improve what you cannot see. We install traceability first — making every process node, handoff, and outcome visible — so improvements are built on truth, not guesswork.
+        </p>
+      </div>
+
+      <div style="background: var(--green); padding: 2.5rem 2rem;" class="reveal">
+        <div style="font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:800; color:rgba(255,255,255,0.15); line-height:1; margin-bottom:1.5rem;">03</div>
+        <h3 style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:0.75rem; font-family:'Syne',sans-serif;">We build systems that outlast us.</h3>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); line-height:1.7;">
+          Our goal is to make ourselves unnecessary. Every process, every QR system, every SOP we design is built so your team owns it completely — with no dependency on us to keep it running.
+        </p>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 3rem; padding: 2rem 2.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg);" class="reveal">
+      <p style="font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:600; color:#FFFFFF; text-align:center; margin:0; line-height:1.6;">
+        "You cannot improve what you cannot measure.<br/>You cannot measure what you cannot trace.<br/>
+        <span style="color:var(--green-light);">We exist to close that loop — permanently.</span>"
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="reveal">
+        <div class="label">Get in touch</div>
+        <h2 style="color:var(--text-primary);">Let's map your process landscape.</h2>
+        <p style="margin-bottom:2rem;">Every engagement starts with a no-obligation conversation. Tell us what you're trying to solve — we'll tell you exactly how we'd approach it.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Email</span>
+            <a href="/cdn-cgi/l/email-protection#f8959794939d9699969994818c919b8bb89f95999194d69b9795"><span class="__cf_email__" data-cfemail="ff929093949a919e919e93868b969c8cbf98929e9693d19c9092">[email&#160;protected]</span></a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Location</span>
+            <p>Hyderabad, Telangana, India</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span>Working hours</span>
+            <p>Mon–Fri 9am–10pm · Sat 9am–6pm · Sun 9am–12pm</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-wrap reveal">
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" placeholder="you@company.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" placeholder="+91 ..." />
+            </div>
+            <div class="form-group">
+              <label for="industry">Your industry</label>
+              <select id="industry">
+                <option value="">Select industry</option>
+                <option>Manufacturing</option>
+                <option>Biotechnology / Pharma</option>
+                <option>Food & Beverage</option>
+                <option>Logistics / Supply Chain</option>
+                <option>Healthcare</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="service">Service of interest</label>
+            <select id="service">
+              <option value="">Select a service</option>
+              <option>Process Optimisation</option>
+              <option>QR Traceability Implementation</option>
+              <option>Data Analytics</option>
+              <option>Quality Control Systems</option>
+              <option>Digital Transformation</option>
+              <option>SOP Development</option>
+              <option>Not sure yet — let's talk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">What are you trying to solve?</label>
+            <textarea id="message" placeholder="Briefly describe your process challenge..."></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submit-btn">Send message →</button>
+          <div id="form-success" style="display:none; margin-top:1rem; padding:1rem; background:rgba(76,175,80,0.1); border:1px solid rgba(76,175,80,0.25); border-radius:var(--radius); font-size:0.88rem; color:#81C784; text-align:center;">
+            Message sent successfully. We'll be in touch within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Mol<span>Ken</span> Analytics</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#qr">QR Traceability</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2025 MolKen Analytics · Hyderabad, India</div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // scroll reveal disabled — always visible
+
+  // Nav scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.borderBottomColor = window.scrollY > 40
+      ? 'rgba(45,106,79,0.3)'
+      : 'rgba(255,255,255,0.06)';
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+
+
+  // Form
+  function handleSubmit(e) {
+    e.pre
